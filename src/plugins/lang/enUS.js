@@ -4,6 +4,8 @@ export const m = {
     account: 'Account',
     password: 'Password',
     loginButton: 'Login',
-    registerButton: 'Register'
+    registerButton: 'Register',
+    account_required: 'Account is required',
+    password_required: 'Password is required'
   }
 }

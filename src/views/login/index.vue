@@ -1,5 +1,5 @@
 <template>
-  <v-app id="login">
+  <v-app class="login">
     <particle/>
     <v-content>
       <v-container class="fill-height" fluid>
@@ -10,9 +10,25 @@
                 <v-toolbar-title>{{ $t('m.login.title') }}</v-toolbar-title>
               </v-toolbar>
               <v-card-text>
-                <v-form>
-                  <v-text-field :label="$t('m.login.account')" name="login" prepend-icon="fas fa-user" type="text"/>
-                  <v-text-field id="password" :label="$t('m.login.password')" name="password" prepend-icon="fas fa-lock" type="password"/>
+                <v-form ref="form" v-model="valid" lazy-validation>
+                  <v-text-field
+                    v-model="form.account"
+                    :rules="[v => !!v || $t('m.login.account_required')]"
+                    :label="$t('m.login.account')"
+                    prepend-icon="fas fa-user"
+                    type="text"
+                    required
+                    :disabled="loading"
+                  />
+                  <v-text-field
+                    v-model="form.password"
+                    :rules="[v => !!v ||$t('m.login.password_required')]"
+                    :label="$t('m.login.password')"
+                    prepend-icon="fas fa-lock"
+                    type="password"
+                    required
+                    :disabled="loading"
+                  />
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -30,12 +46,20 @@
 
 <script>
 import particle from '../../components/particles'
+import { setToken } from '../../utils/permission'
+
 export default {
   name: 'Login',
   components: { particle },
   data() {
     return {
-      windowHeight: '800px'
+      windowHeight: '800px',
+      valid: true,
+      loading: false,
+      form: {
+        account: 'ADMIN',
+        password: 'ADMIN'
+      }
     }
   },
   mounted() {
@@ -43,12 +67,36 @@ export default {
   },
   methods: {
     login() {
-      this.$router.push('/')
+      const params = Object.assign({}, this.form)
+      params['password'] = this.$md5(params['password'])
+      console.log(this.form, params)
+      if (this.$refs['form'].validate()) {
+        this.loading = true
+        this.$http.login.login(params).then(res => {
+          if (res.code === 200) {
+            console.log(res)
+            setToken(res.token)
+            this.$router.push('/')
+          } else {
+            this.$message({
+              type: 'warning',
+              message: 'error'
+            })
+          }
+          this.loading = false
+        }).catch(err => {
+          console.log(err)
+          this.loading = false
+        })
+      }
     }
   }
 }
 </script>
 
-<style scoped>
-
+<style>
+.login::-webkit-scrollbar{
+  width: 0 !important;
+  display: none;
+}
 </style>
