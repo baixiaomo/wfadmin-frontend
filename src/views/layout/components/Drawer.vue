@@ -1,14 +1,13 @@
 <template>
   <v-navigation-drawer
     id="core-navigation-drawer"
-    v-model="drawer"
+    :value="drawer"
     :dark="barColor !== 'rgba(228, 226, 226, 1), rgba(255, 255, 255, 0.7)'"
-    :expand-on-hover="expandOnHover"
+    :expand-on-hover="false"
     :right="$vuetify.rtl"
     :src="barImage"
     mobile-break-point="960"
     app
-    width="260"
     v-bind="$attrs"
   >
     <template v-slot:img="props">
@@ -24,23 +23,13 @@
       dense
       nav
     >
-      <v-list-item>
-        <v-list-item-avatar
-          class="align-self-center"
-          color="white"
-          contain
-        >
-          <v-img
-            src="https://demos.creative-tim.com/vuetify-material-dashboard/favicon.ico"
-            max-height="30"
-          />
+      <v-list-item :class="miniVariant && 'px-0'">
+        <v-list-item-avatar>
+          <img src="https://cdn.vuetifyjs.com/images/lists/5.jpg">
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title
-            class="display-1"
-            v-text="profile.title"
-          />
+          <v-list-item-title><span style="font-size: 20px">WF-ADMIN</span></v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -51,8 +40,6 @@
       expand
       nav
     >
-      <!-- Style cascading bug  -->
-      <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
 
       <template v-for="(item, i) in computedItems">
@@ -178,7 +165,7 @@ export default {
 </script>
 
 <style lang="sass">
-  @import '~vuetify/src/styles/tools/_rtl.sass'
+  @import '../../../../node_modules/vuetify/src/styles/tools/rtl'
 
   #core-navigation-drawer
     .v-list-group__header.v-list-item--active:before

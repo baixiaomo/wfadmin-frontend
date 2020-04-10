@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import NProgress from 'nprogress'
+import { getToken, removeToken, setToken } from '../utils/permission'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  scrollBehavior: () => ({ y: 0 }), // 控制滚动条回到顶部
   routes: [
     {
       path: '/login',
@@ -14,7 +16,7 @@ export default new Router({
     },
     {
       path: '/',
-      component: () => import('@/views/dashboard/index'),
+      component: () => import('@/views/layout/index'),
       children: [
         // Dashboard
         {
@@ -65,3 +67,33 @@ export default new Router({
     }
   ]
 })
+
+beforeRouter()
+
+const whiteList = ['/login', '/404']
+
+function beforeRouter() {
+  router.beforeEach((to, from, next) => {
+    NProgress.start()
+    console.log(getToken())
+    if (getToken()) {
+      if (to.path === '/login') {
+        next({ path: '/' })
+      } else {
+        // 判断当前用户是否已拉取完user_info信息
+        // 根据用户权限添加动态路由
+        next()
+      }
+    } else if (whiteList.indexOf(to.path) !== -1) {
+      // 在免登录白名单，直接进入
+      next()
+    } else {
+      next(`/login?redirect=${to.path}`)
+    }
+  })
+  router.afterEach(() => {
+    NProgress.done()
+  })
+}
+
+export default router

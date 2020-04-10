@@ -13,6 +13,8 @@ import element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './mock'
 import md5 from 'js-md5'
+import 'babel-polyfill'
+import 'url-search-params-polyfill'
 
 Vue.config.productionTip = false
 
