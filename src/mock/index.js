@@ -5,9 +5,9 @@
  */
 import Config from '../http/config'
 import Mock from 'mockjs'
-import * as login from './module/login'
+import * as app from './module/app'
 
-const modules = [login]
+const modules = [app]
 
 Mock.setup({
   timeout: '200-600' // 设置mock请求的超时时间

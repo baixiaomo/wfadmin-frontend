@@ -21,6 +21,7 @@ module.exports = {
         'allowFirstLine': false
       }
     }],
+    'vue/order-in-components': 'off',
     'vue/singleline-html-element-content-newline': 'off',
     'vue/multiline-html-element-content-newline': 'off',
     'vue/html-closing-bracket-spacing': 'off',

@@ -72,7 +72,7 @@ export default {
       console.log(this.form, params)
       if (this.$refs['form'].validate()) {
         this.loading = true
-        this.$http.login.login(params).then(res => {
+        this.$http.app.login(params).then(res => {
           if (res.code === 200) {
             console.log(res)
             setToken(res.token)
