@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/router'
 import store from './store/index'
+import utils from './utils'
 import './plugins/base'
 import './plugins/chartist'
 import './plugins/vee-validate'
@@ -20,6 +21,7 @@ Vue.config.productionTip = false
 
 Vue.prototype.$http = http
 Vue.prototype.$md5 = md5
+Vue.prototype.$utils = utils
 
 Vue.use(element)
 

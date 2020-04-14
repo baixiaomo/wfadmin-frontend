@@ -52,7 +52,7 @@
           <v-item-group v-model="color">
             <v-item v-for="color in colors" :key="color" :value="color">
               <template v-slot="{ active, toggle }">
-                <v-avatar :class="active && 'v-settings__item--active'" :color="color" class="v-settings__item" size="25" @click="toggle"/>
+                <v-avatar :class="active && 'v-settings__item--active'" :color="color" class="v-settings__item px-2" size="25" @click="toggle"/>
               </template>
             </v-item>
           </v-item-group>
@@ -207,7 +207,7 @@
           <v-divider class="my-2" />
           <v-list-item>
             <v-list-item-content>
-              <v-btn color="primary">退出</v-btn>
+              <v-btn color="primary" @click="logout">退出</v-btn>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -315,7 +315,19 @@ export default {
     ...mapMutations({
       setDrawer: 'SET_DRAWER',
       setBarImage: 'SET_BAR_IMAGE'
-    })
+    }),
+    logout() {
+      this.$confirm('确定退出系统？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$utils.permission.removeToken()
+        this.$router.push('/login')
+      }).catch(() => {
+
+      })
+    }
   }
 }
 </script>

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import NProgress from 'nprogress'
 import { getToken, removeToken, setToken } from '../utils/permission'
-import http from '../http'
 
 Vue.use(Router)
 
@@ -82,19 +81,14 @@ function beforeRouter() {
         next({ path: '/' })
       } else {
         // 判断当前用户是否已拉取完user_info信息
-        http.app.info().then(res => {
-          // 根据用户权限添加动态路由
-          next({ path: '/' })
-        }).catch(error => {
-          console.log(error)
-          next({ path: '/login' })
-        })
+        // 根据用户权限添加动态路由
+        next()
       }
     } else if (whiteList.indexOf(to.path) !== -1) {
       // 在免登录白名单，直接进入
       next()
     } else {
-      next(`/login?redirect=${to.path}`)
+      next('/login?redirect=${to.path}')
     }
   })
   router.afterEach(() => {

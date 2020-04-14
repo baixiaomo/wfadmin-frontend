@@ -23,7 +23,7 @@
       dense
       nav
     >
-      <v-list-item :class="miniVariant && 'px-0'">
+      <v-list-item class="px-0">
         <v-list-item-avatar>
           <img src="https://cdn.vuetifyjs.com/images/lists/5.jpg">
         </v-list-item-avatar>
