@@ -1,19 +1,9 @@
 <template>
-  <v-container
-    id="alerts"
-    fluid
-    tag="section"
-  >
-    <base-v-component
-      heading="Alerts"
-      link="components/alerts"
-    />
+  <v-container id="alerts" fluid tag="section">
+    <base-v-component heading="Alerts" link="components/alerts"/>
 
     <v-row>
-      <v-col
-        cols="12"
-        md="6"
-      >
+      <v-col cols="12" md="6">
         <v-card>
           <v-card-text>
             <base-subheading subheading="Notification Style" />

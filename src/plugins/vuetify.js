@@ -4,6 +4,7 @@ import '@/sass/overrides.sass'
 import '@fortawesome/fontawesome-free/css/all.css' // Ensure you are using css-loader
 import 'font-awesome/css/font-awesome.min.css'
 import '@mdi/font/css/materialdesignicons.css'
+import i18n from './i18n'
 
 Vue.use(Vuetify)
 
@@ -25,5 +26,8 @@ export default new Vuetify({
       dark: theme,
       light: theme
     }
+  },
+  lang: {
+    t: (key, ...params) => i18n.t(key, params)
   }
 })

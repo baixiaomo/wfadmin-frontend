@@ -1,6 +1,6 @@
 <template>
   <v-app class="login">
-    <particle/>
+    <!--<particle/>-->
     <v-content>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
@@ -34,7 +34,7 @@
               <v-card-actions>
                 <v-spacer />
                 <v-btn color="success" @click="login">{{ $t('m.login.loginButton') }}</v-btn>
-                <v-btn color="primary">{{ $t('m.login.registerButton') }}</v-btn>
+                <v-btn color="primary" @click="register">{{ $t('m.login.registerButton') }}</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -45,12 +45,10 @@
 </template>
 
 <script>
-import particle from '../../components/particles'
 import { setToken } from '../../utils/permission'
-
 export default {
   name: 'Login',
-  components: { particle },
+  components: {},
   data() {
     return {
       windowHeight: '800px',
@@ -64,8 +62,14 @@ export default {
   },
   mounted() {
     this.windowHeight = window.innerHeight
+    console.log('this.$vuetify.lang', this.$vuetify.lang)
   },
   methods: {
+    register() {
+      this.$alert({ message: '注册', onClose: () => {
+        console.log('注册')
+      } })
+    },
     login() {
       const params = Object.assign({}, this.form)
       params['password'] = this.$md5(params['password'])
@@ -78,9 +82,9 @@ export default {
             setToken(res.token)
             this.$router.push('/')
           } else {
-            this.$message({
+            this.$alert({
               type: 'warning',
-              message: 'error'
+              message: '登陆失败'
             })
           }
           this.loading = false
