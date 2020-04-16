@@ -1,4 +1,4 @@
-import Alert from './alert'
+import Message from './message'
 import Vue from 'vue'
 
-Vue.prototype.$alert = Alert
+Vue.prototype.$message = Message

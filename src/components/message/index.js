@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import alert from './alert'
+import message from './message'
 import vuetify from '@/plugins/vuetify'
 
-const AlertConstructor = Vue.extend(alert)
+const MessageConstructor = Vue.extend(message)
 
 let instance
 
@@ -10,7 +10,7 @@ const instances = []
 
 let seed = 1
 
-const Alert = options => {
+const Message = options => {
   options = options || {}
   if (typeof options === 'string') {
     options = {
@@ -18,9 +18,9 @@ const Alert = options => {
       message: options
     }
   }
-  const id = 'alert_' + seed++
+  const id = 'message_' + seed++
   // 创建实例,记住将vuetify也注入
-  instance = new AlertConstructor({
+  instance = new MessageConstructor({
     data: options,
     vuetify
   })
@@ -31,7 +31,4 @@ const Alert = options => {
   return instance
 }
 
-Alert.close = id => {
-}
-
-export default Alert
+export default Message

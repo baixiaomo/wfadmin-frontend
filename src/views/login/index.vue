@@ -66,7 +66,7 @@ export default {
   },
   methods: {
     register() {
-      this.$alert({ message: '注册', onClose: () => {
+      this.$message({ message: '注册', onClose: () => {
         console.log('注册')
       } })
     },
@@ -82,7 +82,7 @@ export default {
             setToken(res.token)
             this.$router.push('/')
           } else {
-            this.$alert({
+            this.$message({
               type: 'warning',
               message: '登陆失败'
             })

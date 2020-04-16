@@ -27,7 +27,7 @@
 
 <script>
 export default {
-  name: 'Alert',
+  name: 'Message',
   data() {
     return {
       value: true,
