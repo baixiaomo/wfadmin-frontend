@@ -317,15 +317,13 @@ export default {
       setBarImage: 'SET_BAR_IMAGE'
     }),
     logout() {
-      this.$confirm('确定退出系统？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$utils.permission.removeToken()
-        this.$router.push('/login')
-      }).catch(() => {
-
+      this.$confirm({
+        type: 'warning',
+        message: '是否退出系统?',
+        onOk: () => {
+          this.$utils.permission.removeToken()
+          this.$router.push('/login')
+        }
       })
     }
   }

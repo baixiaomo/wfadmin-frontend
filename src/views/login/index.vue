@@ -62,13 +62,10 @@ export default {
   },
   mounted() {
     this.windowHeight = window.innerHeight
-    console.log('this.$vuetify.lang', this.$vuetify.lang)
   },
   methods: {
     register() {
-      this.$message({ message: '注册', onClose: () => {
-        console.log('注册')
-      } })
+      this.$message('register')
     },
     login() {
       const params = Object.assign({}, this.form)
